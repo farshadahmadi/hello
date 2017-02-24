@@ -1,11 +1,19 @@
 var express = require('express')
 var app = express()
+var spawn = require('child_process').spawn;
 
 app.get('/', function (req, res) {
-  res.send('Hello Farshad!')
+  var child = spawn('ls', ["-l"]);
+  child.stdout.on("data", function(data){
+    var str = String(data);
+    console.log(str);
+    res.send('Hello Farshad!');
+  });
+  //res.send('Hello Farshad!');
+  
 })
 
 app.listen(8080, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('Example app listening on port 8080!')
 })
 
